@@ -15,7 +15,7 @@ class CoursDeroulerController extends Controller
      */
     public function index()
     {
-        $coursDeroulers = CoursDerouler::all();
+        $coursDeroulers = CoursDerouler::with('cours_enroller_id')->get();
         return response()->json([
             'cours' => $coursDeroulers
         ]);
@@ -24,23 +24,37 @@ class CoursDeroulerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCoursDeroulerRequest $request)
-        {
-        $coursDerouler = CoursDerouler::create($request->all());
-        // Récupérer le coursEnroller lié
-        $coursEnroller = CoursEnroller::findOrFail($request->cours_enroller_id);
+    public function store(Request $request)
+{
+    // Créer un nouveau coursDerouler avec les données de la requête
+    $coursDerouler = CoursDerouler::create($request->all());
 
-        // Mettre à jour le champ "heureDeroule" dans le coursEnroller en ajoutant le nombre d'heures déroulées
-        $coursEnroller->heureDeroule += $request->nombreHeure;
+    // Sauvegarder le nombre d'heures déroulées envoyées dans la requête
+    $heureDeroule = $coursDerouler->nombreHeure;
 
-        // Mettre à jour le champ "heureRestant" dans le coursEnroller en soustrayant le nombre d'heures déroulées au temps total
-        $coursEnroller->heureRestant = $coursEnroller->heureTotal - $coursEnroller->heureDeroule;
-        $coursDerouler->save();
-        return response()->json([
-            'message' => "Le cours s'est déroulé avec succes",
-            'classe' => $coursDerouler
-        ], 200);
-    }
+    // Récupérer le coursEnroller lié
+    $coursEnroller = CoursEnroller::findOrFail($coursDerouler->cours_enroller_id);
+
+    // Récupérer l'ancien nombre d'heures déroulées
+    $ancienNombreHeure = $coursEnroller->heureDeroule;
+
+    // Calculer le nouveau nombre d'heures déroulées
+    $nouveauHeureDeroule = $heureDeroule + $ancienNombreHeure;
+
+    // Mettre à jour le champ "heureDeroule" dans le coursEnroller
+    $coursEnroller->heureDeroule = $nouveauHeureDeroule;
+
+    // Mettre à jour le champ "heureRestant" dans le coursEnroller
+    $coursEnroller->heureRestant = $coursEnroller->heureTotal - $coursEnroller->heureDeroule;
+
+    // Sauvegarder les changements dans le coursEnroller
+    $coursEnroller->save();
+
+    return response()->json([
+        'message' => 'Le cours déroulé a été créé avec succès',
+        'cours_derouler' => $coursDerouler
+    ]);
+}
 
     /**
      * Display the specified resource.
@@ -63,7 +77,7 @@ class CoursDeroulerController extends Controller
      * Update the specified resource in storage.
      */
 
-    public function updateCoursDerouler(Request $request, $coursDeroulerId)
+    public function update(Request $request, $coursDeroulerId)
         {
         // Récupérer le coursDerouler
         $coursDerouler = CoursDerouler::findOrFail($coursDeroulerId);

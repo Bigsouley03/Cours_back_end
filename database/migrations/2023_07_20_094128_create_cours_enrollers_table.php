@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('heureDeroule')->default(0);
             $table->integer('heureRestant')->default(0);
             $table->foreignId('module_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('professeur_id')->constrained();
             $table->foreignId('classe_id')->constrained();
             $table->foreignId('semestre_id')->constrained();
 

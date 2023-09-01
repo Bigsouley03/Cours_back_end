@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCoursEnrollerRequest;
 use App\Http\Requests\UpdateCoursEnrollerRequest;
+use App\Models\Classe;
 use App\Models\CoursEnroller;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class CoursEnrollerController extends Controller
      */
     public function index()
     {
-        $coursEnrollers = CoursEnroller::with('module_id', 'user_id','classe_id','semestre_id')->get();
+        $coursEnrollers = CoursEnroller::with('module_id', 'professeur_id','classe_id','semestre_id')->get();
         return response()->json([
             'cours' => $coursEnrollers
         ]);
@@ -39,7 +40,7 @@ class CoursEnrollerController extends Controller
      */
     public function show($id)
     {
-        $coursesE = CoursEnroller::with('module_id', 'user_id','classe_id','semestre_id')->find($id);
+        $coursesE = CoursEnroller::with('module_id', 'professeur_id','classe_id','semestre_id')->find($id);
 
 
 
@@ -52,7 +53,16 @@ class CoursEnrollerController extends Controller
 
     }
 
+    public function showClassById($id)
+    {
 
+        $course = CoursEnroller::with('module_id','classe_id')->where('classe_id',$id)->get();
+
+
+        return response()->json([
+            'cours' => $course,
+        ], 200);
+    }
 
     /**
      * Update the specified resource in storage.

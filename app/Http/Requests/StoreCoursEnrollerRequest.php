@@ -24,11 +24,11 @@ class StoreCoursEnrollerRequest extends FormRequest
         return [
             "objectifs" => 'required',
             "heureTotal"  => 'required',
-            "heureDeroule"  => 'required',
-            "heureRestant"  => 'required',
+            "heureDeroule"  => 'nullable|numeric', // Heure déroulée n'est plus requis, mais doit être numérique s'il est présent.
+            "heureRestant"  => 'nullable|numeric',
             "semestre_id"=>'required|exists:semestres,id',
             "classe_id"=>'required|exists:classes,id',
-            "user_id"=>'required|exists:users,id',
+            "professeur_id"=>'required|exists:professeurs,id',
             "module_id"=>'required|exists:modules,id',
 
         ];

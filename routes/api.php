@@ -8,6 +8,7 @@ use App\Http\Controllers\SemestreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfesseurController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,11 +56,21 @@ Route::get('/showClasse/{id}', [ClasseController::class, 'show']);
 Route::put('/updateClasse/{id}', [ClasseController::class, 'update']);
 Route::delete('/deleteClasse/{id}', [ClasseController::class, 'destroy']);
 
+//Professeurs
+//Classe
+Route::get('/professeur',[ProfesseurController::class,'index']);
+Route::post('/storeProf',[ProfesseurController::class,'store']);
+Route::get('/showProf/{id}', [ProfesseurController::class, 'show']);
+Route::put('/updateProf/{id}', [ProfesseurController::class, 'update']);
+Route::delete('/deleteProf/{id}', [ProfesseurController::class, 'destroy']);
+
+
 
 //Cours_Enroller
 Route::get('/coursE',[CoursEnrollerController::class,'index']);
 Route::post('/storeCoursE',[CoursEnrollerController::class,'store']);
 Route::get('/showCoursE/{id}', [CoursEnrollerController::class, 'show']);
+Route::get('/coursE/showClassById/{id}', [CoursEnrollerController::class, 'showClassById']);
 Route::put('/updateCoursE/{id}', [CoursEnrollerController::class, 'update']);
 Route::delete('/deleteCoursE/{id}', [CoursEnrollerController::class, 'destroy']);
 
@@ -68,7 +79,7 @@ Route::delete('/deleteCoursE/{id}', [CoursEnrollerController::class, 'destroy'])
 Route::get('/coursD',[CoursDeroulerController::class,'index']);
 Route::post('/storeCoursD',[CoursDeroulerController::class,'store']);
 Route::get('/showCoursD/{id}', [CoursDeroulerController::class, 'show']);
-Route::put('/updateCoursD/{id}', [CoursDeroulerController::class, 'updateCoursDerouler']);
+Route::put('/updateCoursD/{id}', [CoursDeroulerController::class, 'update']);
 Route::delete('/deleteCoursD/{id}', [CoursDeroulerController::class, 'destroy']);
 
 

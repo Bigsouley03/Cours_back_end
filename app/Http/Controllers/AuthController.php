@@ -75,10 +75,10 @@ class AuthController extends Controller
     }
     public function index()
     {
-        // Récupérer la liste de tous les utilisateurs, en excluant l'utilisateur avec ID 1
-        $users = User::where('id', '<>', 1)->get();
+            // Récupérer la liste de tous les utilisateurs
+            $users = User::all();
 
-        return response()->json($users);
+            return response()->json($users);
     }
 
 
