@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreModuleRequest;
 use App\Http\Requests\UpdateModuleRequest;
 use App\Models\Module;
+use App\Models\ProgramUe;
 use Illuminate\Http\Request;
 
 class ModuleController extends Controller
@@ -26,10 +27,11 @@ class ModuleController extends Controller
      */
     public function store(StoreModuleRequest $request)
     {
+
         $module = Module::create($request->all());
 
         return response()->json([
-            'message' => "Module créé avec succés!",
+            'message' => "Module créé avec succès !",
             'Module' => $module
         ], 200);
     }

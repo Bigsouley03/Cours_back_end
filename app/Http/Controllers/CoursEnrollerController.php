@@ -64,9 +64,6 @@ class CoursEnrollerController extends Controller
         ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateCoursEnrollerRequest $request, $id)
     {
         $courses = CoursEnroller::find($id);

@@ -25,6 +25,7 @@ class UpdateModuleRequest extends FormRequest
             "moduleName"  => 'required',
             "status"  => 'required',
             "id"=>'required|exists:modules,id'
+            
         ];
     }
 }

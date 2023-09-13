@@ -5,10 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Module extends Model
+class TableUe extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['moduleName', 'status',];
-
+    protected $fillable = ['nomUe'];
 }

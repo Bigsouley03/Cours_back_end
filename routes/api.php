@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfesseurController;
+use App\Http\Controllers\ProgramUeController;
+use App\Http\Controllers\TableUeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +51,21 @@ Route::put('/updateSemestre/{id}',[SemestreController::class,'update']);
 Route::delete('/deleteSemestre/{id}',[SemestreController::class,'destroy']);
 
 
+//TableUe
+Route::get('/tableUe',[TableUeController::class,'index']);
+Route::post('/storeTableUe',[TableUeController::class,'store']);
+Route::get('/showTableUe/{id}',[TableUeController::class,'show']);
+Route::put('/updateTableUe/{id}',[TableUeController::class,'store']);
+Route::delete('/deleteTableUe/{id}',[TableUeController::class,'destroy']);
+
+
+//ProgramUe
+Route::get('/programUe',[ProgramUeController::class,'index']);
+Route::post('/storeProgramUe',[ProgramUeController::class,'store']);
+Route::get('/showProgramUe/{id}',[ProgramUeController::class,'show']);
+Route::put('/updateProgramUe/{id}',[ProgramUeController::class,'store']);
+Route::delete('/deleteProgramUe/{id}',[ProgramUeController::class,'destroy']);
+
 //Classe
 Route::get('/classe',[ClasseController::class,'index']);
 Route::post('/storeClasse',[ClasseController::class,'store']);
@@ -71,6 +88,7 @@ Route::get('/coursE',[CoursEnrollerController::class,'index']);
 Route::post('/storeCoursE',[CoursEnrollerController::class,'store']);
 Route::get('/showCoursE/{id}', [CoursEnrollerController::class, 'show']);
 Route::get('/coursE/showClassById/{id}', [CoursEnrollerController::class, 'showClassById']);
+
 Route::put('/updateCoursE/{id}', [CoursEnrollerController::class, 'update']);
 Route::delete('/deleteCoursE/{id}', [CoursEnrollerController::class, 'destroy']);
 
