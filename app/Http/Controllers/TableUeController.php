@@ -13,10 +13,13 @@ class TableUeController extends Controller
      * Affiche la liste des ressources.
      */
     public function index()
-    {
-        $tableUes = TableUe::all();
-        return response()->json($tableUes, 200);
-    }
+{
+    // Récupérer la liste complète des ressources TableUe
+    $tableUes = TableUe::all();
+
+    // Renvoyer la liste des ressources sous forme de réponse JSON
+    return response()->json($tableUes, 200);
+}
 
     /**
      * Stocke une nouvelle ressource dans la base de données.
@@ -25,6 +28,7 @@ class TableUeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nomUe' => 'required|string|max:255',
+            'classe_id' => 'required|exists:classes,id',
         ]);
 
         if ($validator->fails()) {
@@ -33,17 +37,20 @@ class TableUeController extends Controller
 
         $tableUe = new TableUe();
         $tableUe->nomUe = $request->input('nomUe');
+        $tableUe->classe_id = $request->input('classe_id');
         $tableUe->save();
 
         return response()->json($tableUe, 201);
     }
 
+
     /**
      * Affiche la ressource spécifiée.
      */
-    public function show(TableUe $tableUe)
+    public function show($id)
     {
-        return response()->json($tableUe, 200);
+        $programUe = TableUe::with('nomUe','classe_id')->find($id);
+        return response()->json($programUe, 200);
     }
 
     /**

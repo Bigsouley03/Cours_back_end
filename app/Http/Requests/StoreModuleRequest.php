@@ -23,6 +23,7 @@ class StoreModuleRequest extends FormRequest
     {
         return [
             "moduleName"  => 'required',
+            "status" => 'nullable'
         ];
     }
 }

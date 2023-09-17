@@ -9,7 +9,7 @@ class Professeur extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'password', 'adresse', 'specialite', 'user_id'];
+    protected $fillable = ['name', 'email', 'password', 'adresse', 'specialite','tel', 'user_id'];
 
     // Relation avec le modèle User
     public function user_id()

@@ -12,7 +12,7 @@ class ProgramUeController extends Controller
      */
     public function index()
     {
-        $programUes = ProgramUe::with('table_ue_id','classe_id','module_id')->get();
+        $programUes = ProgramUe::with('table_ue','module')->get();
         return response()->json($programUes, 200);
     }
 
@@ -23,7 +23,6 @@ class ProgramUeController extends Controller
     {
         $data = $request->validate([
             'table_ue_id' => 'required|exists:table_ues,id',
-            'classe_id' => 'required|exists:classes,id',
             'module_id' => 'required|exists:modules,id',
 
         ]);
@@ -38,13 +37,17 @@ class ProgramUeController extends Controller
      */
     public function show($id)
     {
-        $programUe = ProgramUe::with('classe_id','module_id','table_ue_id')->find($id);
+        $programUe = ProgramUe::with('module_id','table_ue_id')->find($id);
         return response()->json($programUe, 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
+
+
+
+
     public function update(Request $request, ProgramUe $programUe)
     {
         $data = $request->validate([

@@ -62,7 +62,11 @@ Route::delete('/deleteTableUe/{id}',[TableUeController::class,'destroy']);
 //ProgramUe
 Route::get('/programUe',[ProgramUeController::class,'index']);
 Route::post('/storeProgramUe',[ProgramUeController::class,'store']);
+Route::get('/programUe/showModulesByClass/{id}',[ProgramUeController::class,'showModulesByClass']);
 Route::get('/showProgramUe/{id}',[ProgramUeController::class,'show']);
+Route::get('/programUe/showModulesByClass/{classeId}', [ProgramUeController::class, 'showModulesByClass']);
+Route::get('/programUe/showModuleByUeByClass/{classeId}/{ueId}', [ProgramUeController::class, 'showModuleByUeByClass']);
+Route::get('/programUe/showUeByClass/{classeId}', [ProgramUeController::class, 'showUeByClass']);
 Route::put('/updateProgramUe/{id}',[ProgramUeController::class,'store']);
 Route::delete('/deleteProgramUe/{id}',[ProgramUeController::class,'destroy']);
 
