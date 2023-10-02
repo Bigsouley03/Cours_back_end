@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CoursEnroller extends Model
 {
     use HasFactory;
-    protected $fillable = ['objectifs', 'heureTotal','heureDeroule','heureRestant','module_id','professeur_id','classe_id','semestre_id'];
+    protected $fillable = ['heureTotal','heureDeroule','heureRestant','module_id','professeur_id','classe_id','semestre_id'];
 
 
     public function module_id()

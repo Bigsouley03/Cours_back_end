@@ -9,20 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('table_ues', function (Blueprint $table) {
+        Schema::create('program_ue_modules', function (Blueprint $table) {
             $table->id();
-            $table->string('nomUe');
             $table->timestamps();
+            $table->foreignId('program_module_id')->constrained('program_modules');
+            $table->foreignId('module_id')->constrained('modules');
         });
     }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_ues');
+        Schema::dropIfExists('program_ue_modules');
     }
 };

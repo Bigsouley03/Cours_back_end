@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cours_enrollers', function (Blueprint $table) {
+        Schema::create('program_modules', function (Blueprint $table) {
             $table->id();
-            $table->integer('heureTotal');
-            $table->integer('heureDeroule')->default(0);
-            $table->integer('heureRestant')->default(0);
-            $table->foreignId('module_id')->constrained();
-            $table->foreignId('professeur_id')->constrained();
             $table->foreignId('classe_id')->constrained();
-            $table->foreignId('semestre_id')->constrained();
+            $table->foreignId('table_ue_id')->constrained();
 
             $table->timestamps();
         });
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cours_enrollers');
+        Schema::dropIfExists('program_modules');
     }
 };

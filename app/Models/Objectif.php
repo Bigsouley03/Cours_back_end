@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Contenu extends Model
+class Objectif extends Model
 {
     use HasFactory;
-    protected $fillable = ['cours_enroller_id','etat'];
+    protected $fillable = ['description','cours_enroller_id','etat'];
 
     public function cours_enroller_id()
     {

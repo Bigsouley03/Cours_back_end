@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateCoursEnrollerRequest;
 use App\Models\Classe;
 use App\Models\CoursEnroller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CoursEnrollerController extends Controller
 {
@@ -15,11 +16,12 @@ class CoursEnrollerController extends Controller
      */
     public function index()
     {
-        $coursEnrollers = CoursEnroller::with('module_id', 'professeur_id','classe_id','semestre_id')->get();
+        $coursEnrollers = CoursEnroller::all();
         return response()->json([
             'cours' => $coursEnrollers
         ]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -35,6 +37,32 @@ class CoursEnrollerController extends Controller
         ], 200);
     }
 
+    public function showHourData($classeId, $semestreId, $moduleId)
+{
+    $courseData = CoursEnroller::
+        where('classe_id', $classeId)
+        ->where('semestre_id', $semestreId)
+        ->where('module_id', $moduleId)
+        // ->select(
+        //     DB::raw('SUM(heureDeroule) as heureDeroule'),
+        //     DB::raw('SUM(heureRestant) as heureRestant'),
+        //     DB::raw('SUM(heureTotal) as heureTotal')
+
+        // )
+        ->first();
+
+    if (!$courseData) {
+        return response()->json(['message' => 'Données de cours non trouvées'], 404);
+    }
+
+    return response()->json([
+        'contenu'=>$courseData->contenu,
+        'heureDeroule' => $courseData->heureDeroule,
+        'heureRestant' => $courseData->heureRestant,
+        'heureTotal' => $courseData->heureTotal,
+
+    ], 200);
+}
     /**
      * Display the specified resource.
      */

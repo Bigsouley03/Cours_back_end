@@ -2,72 +2,116 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProgramUe;
 use Illuminate\Http\Request;
+use App\Models\ProgramUe; // Assurez-vous d'importer le modèle ProgramUe approprié
 
 class ProgramUeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche la liste des ressources.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $programUes = ProgramUe::with('table_ue','module')->get();
-        return response()->json($programUes, 200);
+        // Récupérez toutes les entrées de la table program_ues
+        $programUes = ProgramUe::all();
+
+        // Retournez les données sous forme de réponse JSON
+        return response()->json($programUes);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stocke une nouvelle ressource dans la base de données.
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'table_ue_id' => 'required|exists:table_ues,id',
-            'module_id' => 'required|exists:modules,id',
+        // Validez les données du formulaire (vous pouvez ajouter des règles de validation ici)
 
-        ]);
+        // Créez une nouvelle instance de ProgramUe
+        $programUe = new ProgramUe;
 
-        $programUe = ProgramUe::create($data);
+        // Remplissez les propriétés du modèle avec les données du formulaire
+        $programUe->table_ue_id = $request->input('table_ue_id');
+        $programUe->classe_id = $request->input('classe_id');
 
-        return response()->json($programUe, 201);
+        // Enregistrez la nouvelle ressource dans la base de données
+        $programUe->save();
+
+        // Retournez une réponse JSON indiquant que la ressource a été créée avec succès
+        return response()->json(['message' => 'Ressource créée avec succès'], 201);
     }
 
     /**
-     * Display the specified resource.
+     * Affiche la ressource spécifiée.
      */
     public function show($id)
     {
-        $programUe = ProgramUe::with('module_id','table_ue_id')->find($id);
-        return response()->json($programUe, 200);
+        // Recherchez la ressource par son ID
+        $programUe = ProgramUe::find($id);
+
+        // Vérifiez si la ressource existe
+        if (!$programUe) {
+            return response()->json(['message' => 'Ressource non trouvée'], 404);
+        }
+
+        // Retournez la ressource sous forme de réponse JSON
+        return response()->json($programUe);
+    }
+    public function showUeByClassId($classeId)
+{
+    // Recherchez toutes les ressources ProgramUe ayant la classe_id correspondante
+    $programUes = ProgramUe::where('classe_id', $classeId)->get();
+
+    // Vérifiez si des ressources ont été trouvées
+    if ($programUes->isEmpty()) {
+        return response()->json(['message' => 'Aucune ressource trouvée pour cette classe'], 404);
+    }
+
+    // Retournez les ressources sous forme de réponse JSON
+    return response()->json($programUes);
+}
+    /**
+     * Met à jour la ressource spécifiée dans la base de données.
+     */
+    public function update(Request $request, $id)
+    {
+        // Recherchez la ressource par son ID
+        $programUe = ProgramUe::find($id);
+
+        // Vérifiez si la ressource existe
+        if (!$programUe) {
+            return response()->json(['message' => 'Ressource non trouvée'], 404);
+        }
+
+        // Validez les données du formulaire (vous pouvez ajouter des règles de validation ici)
+
+        // Mettez à jour les propriétés du modèle avec les données du formulaire
+        $programUe->table_ue_id = $request->input('table_ue_id');
+        $programUe->classe_id = $request->input('classe_id');
+
+        // Enregistrez les modifications dans la base de données
+        $programUe->save();
+
+        // Retournez une réponse JSON indiquant que la ressource a été mise à jour avec succès
+        return response()->json(['message' => 'Ressource mise à jour avec succès']);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Supprime la ressource spécifiée de la base de données.
      */
-
-
-
-
-    public function update(Request $request, ProgramUe $programUe)
+    public function destroy($id)
     {
-        $data = $request->validate([
-            'table_ue_id' => 'exists:table_ues,id',
-            'classe_id' => 'exists:classes,id',
-        ]);
+        // Recherchez la ressource par son ID
+        $programUe = ProgramUe::find($id);
 
-        $programUe->update($data);
+        // Vérifiez si la ressource existe
+        if (!$programUe) {
+            return response()->json(['message' => 'Ressource non trouvée'], 404);
+        }
 
-        return response()->json($programUe, 200);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ProgramUe $programUe)
-    {
+        // Supprimez la ressource de la base de données
         $programUe->delete();
 
-        return response()->json(['message' => 'ProgramUe deleted'], 204);
+        // Retournez une réponse JSON indiquant que la ressource a été supprimée avec succès
+        return response()->json(['message' => 'Ressource supprimée avec succès']);
     }
 }
-

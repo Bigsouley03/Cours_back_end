@@ -22,7 +22,6 @@ class StoreCoursEnrollerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "objectifs" => 'required',
             "heureTotal"  => 'required',
             "heureDeroule"  => 'nullable|numeric', // Heure déroulée n'est plus requis, mais doit être numérique s'il est présent.
             "heureRestant"  => 'nullable|numeric',

@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('table_ues', function (Blueprint $table) {
+        Schema::create('program_ue_module', function (Blueprint $table) {
             $table->id();
-            $table->string('nomUe');
             $table->timestamps();
         });
     }
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_ues');
+        Schema::dropIfExists('program_ue_module');
     }
 };

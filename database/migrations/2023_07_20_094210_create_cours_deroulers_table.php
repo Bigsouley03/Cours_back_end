@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->integer('nombreHeure');
-            $table->longText('objectifs');
             $table->foreignId('cours_enroller_id')->constrained();
             $table->timestamps();
         });

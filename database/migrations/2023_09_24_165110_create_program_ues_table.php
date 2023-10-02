@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('program_ues', function (Blueprint $table) {
             $table->id();
             $table->foreignId('table_ue_id')->constrained();
-            $table->foreignId('module_id')->constrained();
+            $table->foreignId('classe_id')->constrained();
             $table->timestamps();
         });
     }

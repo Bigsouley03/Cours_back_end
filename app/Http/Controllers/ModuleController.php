@@ -36,6 +36,8 @@ class ModuleController extends Controller
         ], 200);
     }
 
+
+    
     /**
      * Display the specified resource.
      */
@@ -59,6 +61,8 @@ class ModuleController extends Controller
             'module' => $module
         ], 200);
     }
+
+
 
     /**
      * Remove the specified resource from storage.

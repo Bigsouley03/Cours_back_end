@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CoursDerouler extends Model
 {
     use HasFactory;
-    protected $fillable = ['date', 'nombreHeure','objectifs','cours_enroller_id'];
+    protected $fillable = ['date', 'nombreHeure','cours_enroller_id'];
 
     public function cours_enroller_id()
     {

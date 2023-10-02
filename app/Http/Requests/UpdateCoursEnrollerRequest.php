@@ -22,7 +22,6 @@ class UpdateCoursEnrollerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "objectifs" => 'required',
             "heureTotal"  => 'required',
             "heureDeroule"  => 'required',
             "heureRestant"  => 'required',
