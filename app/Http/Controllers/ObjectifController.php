@@ -26,6 +26,24 @@ class ObjectifController extends Controller
 
     return response()->json(['objectifs' => $objectifs]);
 }
+
+public function saveObjectifs(Request $request)
+{
+    $objectifsData = $request->json()->all();
+
+    try {
+        foreach ($objectifsData as $objectifData) {
+            $objectif = Objectif::findOrFail($objectifData['id']);
+            $objectif->etat = $objectifData['etat']; // Mettez à jour l'état de l'objectif
+            $objectif->save();
+        }
+
+        return response()->json(['message' => 'Objectifs sauvegardés avec succès']);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Erreur lors de la sauvegarde des objectifs'], 500);
+    }
+}
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([

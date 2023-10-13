@@ -71,6 +71,7 @@ Route::get('/programModule/showModulesByClass/{classeId}', [Program_moduleContro
 Route::get('/programModule/showModuleByUeByClass/{classeId}/{ueId}', [Program_moduleController::class, 'showModuleByUeByClass']);
 Route::get('/programModule/showUeByClass/{classeId}', [Program_moduleController::class, 'showUeByClass']);
 Route::put('/updateProgramModule/{id}',[Program_moduleController::class,'store']);
+Route::get('/showModulesByUeAndClass/{ueId}/{classId}',[Program_moduleController::class,'showModulesByUeAndClass']);
 Route::delete('/deleteProgramModule/{id}',[Program_moduleController::class,'destroy']);
 
 //Classe
@@ -81,7 +82,6 @@ Route::put('/updateClasse/{id}', [ClasseController::class, 'update']);
 Route::delete('/deleteClasse/{id}', [ClasseController::class, 'destroy']);
 
 //Professeurs
-//Classe
 Route::get('/professeur',[ProfesseurController::class,'index']);
 Route::post('/storeProf',[ProfesseurController::class,'store']);
 Route::get('/showProf/{id}', [ProfesseurController::class, 'show']);
@@ -116,6 +116,7 @@ Route::delete('/deleteCoursE/{id}', [CoursEnrollerController::class, 'destroy'])
 Route::get('/objectif', [ObjectifController::class, 'index']);
 Route::get('objectif/byCoursE/{coursEnrollerId}', [ObjectifController::class,'getObjectifsByCoursE']);
 Route::put('/updateObjectifs/{id}', [ObjectifController::class, 'update']);
+Route::put('/objectif/saveObjectifs', [ObjectifController::class, 'saveObjectifs']);
 Route::post('/storeObjectifs', [ObjectifController::class, 'store']);
 Route::delete('/deleteObjectifs/{id}', [ObjectifController::class, 'destroy']);
 
